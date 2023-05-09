@@ -5,6 +5,7 @@
  * 2.0.
  */
 
+import Url from 'url';
 import { EuiBadge, EuiIcon, EuiText, EuiTitle, EuiToolTip } from '@elastic/eui';
 import { i18n } from '@kbn/i18n';
 import React, { ReactNode, useRef, useState, useEffect } from 'react';
@@ -25,6 +26,7 @@ import { IWaterfallSpanOrTransaction } from './waterfall_helpers/waterfall_helpe
 import { FailureBadge } from './failure_badge';
 import { useApmRouter } from '../../../../../../hooks/use_apm_router';
 import { useAnyOfApmParams } from '../../../../../../hooks/use_apm_params';
+import { HttpInfoSummaryItem } from '../../../../../shared/summary/http_info_summary_item';
 
 type ItemType = 'transaction' | 'span' | 'error';
 
@@ -189,6 +191,17 @@ function HttpStatusCode({ item }: { item: IWaterfallSpanOrTransaction }) {
   return <EuiText size="xs">{httpStatusCode}</EuiText>;
 }
 
+function getHttpBadge(item: IWaterfallSpanOrTransaction ) {
+  if ( item.doc?.http?.request?.method != null) {
+    let path = null;
+    if ( item.doc?.url?.original != null) {
+      let url = Url.parse(item.doc?.url?.original);
+      path = url.path;
+    }
+    return (<HttpInfoSummaryItem method={item.doc.http.request.method} url={path} />);
+  }
+}
+
 function NameLabel({ item }: { item: IWaterfallSpanOrTransaction }) {
   switch (item.docType) {
     case 'span':
@@ -294,6 +307,7 @@ export function WaterfallItem({
         <HttpStatusCode item={item} />
         <NameLabel item={item} />
 
+        {getHttpBadge(item)}
         <Duration item={item} />
         <RelatedErrors item={item} errorCount={errorCount} />
         {item.docType === 'span' && (

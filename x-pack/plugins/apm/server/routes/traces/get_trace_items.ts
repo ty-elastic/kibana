@@ -44,6 +44,8 @@ import {
   TRANSACTION_NAME,
   TRANSACTION_RESULT,
   TRANSACTION_TYPE,
+  URL_ORIGINAL,
+  HTTP_REQUEST_METHOD
 } from '../../../common/es_fields/apm';
 import {
   WaterfallError,
@@ -136,6 +138,8 @@ export async function getTraceItems(
         SPAN_COMPOSITE_SUM,
         SPAN_SYNC,
         CHILD_ID,
+        URL_ORIGINAL,
+        HTTP_REQUEST_METHOD
       ],
       query: {
         bool: {

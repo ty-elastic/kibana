@@ -35,6 +35,8 @@ export interface WaterfallTransaction {
   span?: {
     links?: SpanLink[];
   };
+  url?: { path?: string};
+  http?: { request?: { method?: string } };
 }
 
 export interface WaterfallSpan {
@@ -67,6 +69,8 @@ export interface WaterfallSpan {
     id: string;
   };
   child?: { id: string[] };
+  url?: { path?: string};
+  http?: { request?: { method?: string } };
 }
 
 export interface WaterfallError {
