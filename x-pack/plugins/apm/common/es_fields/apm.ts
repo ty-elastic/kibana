@@ -40,6 +40,7 @@ export const SERVICE_OVERFLOW_COUNT =
   'service_transaction.aggregation.overflow_count';
 
 export const URL_FULL = 'url.full';
+export const URL_ORIGINAL = 'url.original';
 export const HTTP_REQUEST_METHOD = 'http.request.method';
 export const HTTP_RESPONSE_STATUS_CODE = 'http.response.status_code';
 export const USER_ID = 'user.id';
